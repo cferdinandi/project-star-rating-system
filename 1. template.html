@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ratings</title>
+
+	<style type="text/css">
+		body {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 40em;
+			width: 88%;
+		}
+
+		.star {
+			background: none;
+			border: none;
+			font-size: 1.5em;
+			padding: 0 0.15em;
+		}
+
+		/**
+		 * Visually hide an element, but leave it available for screen readers
+		 * @link https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+		 * @link http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+		 */
+		.screen-reader {
+			border: 0;
+			clip: rect(0 0 0 0);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			white-space: nowrap;
+			width: 1px;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Rate Me</h1>
+
+	<form class="rating" id="product1">
+		<button type="submit" class="star" data-star="1">
+			&#9733;
+			<span class="screen-reader">1 Star</span>
+		</button><button type="submit" class="star" data-star="2">
+			&#9733;
+			<span class="screen-reader">2 Stars</span>
+		</button><button type="submit" class="star" data-star="3">
+			&#9733;
+			<span class="screen-reader">3 Stars</span>
+		</button><button type="submit" class="star" data-star="4">
+			&#9733;
+			<span class="screen-reader">4 Stars</span>
+		</button><button type="submit" class="star" data-star="5">
+			&#9733;
+			<span class="screen-reader">5 Stars</span>
+		</button>
+	</form>
+
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+	<script>
+		// Your code goes here
+	</script>
+</body>
+</html>
