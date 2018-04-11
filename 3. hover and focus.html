@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ratings</title>
+
+	<style type="text/css">
+		body {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 40em;
+			width: 88%;
+		}
+
+		.star {
+			background: none;
+			border: none;
+			font-size: 1.5em;
+			padding: 0 0.15em;
+		}
+
+		.star.selected {
+			color: gold;
+		}
+
+		/**
+		 * Visually hide an element, but leave it available for screen readers
+		 * @link https://github.com/h5bp/html5-boilerplate/blob/master/dist/css/main.css
+		 * @link http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+		 */
+		.screen-reader {
+			border: 0;
+			clip: rect(0 0 0 0);
+			height: 1px;
+			margin: -1px;
+			overflow: hidden;
+			padding: 0;
+			position: absolute;
+			white-space: nowrap;
+			width: 1px;
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Rate Me</h1>
+
+	<form class="rating" id="product1">
+		<button type="submit" class="star" data-star="1">
+			<span aria-hidden="true">&#9733;</span>
+			<span class="screen-reader">1 Star</span>
+		</button><button type="submit" class="star" data-star="2">
+			<span aria-hidden="true">&#9733;</span>
+			<span class="screen-reader">2 Stars</span>
+		</button><button type="submit" class="star" data-star="3">
+			<span aria-hidden="true">&#9733;</span>
+			<span class="screen-reader">3 Stars</span>
+		</button><button type="submit" class="star" data-star="4">
+			<span aria-hidden="true">&#9733;</span>
+			<span class="screen-reader">4 Stars</span>
+		</button><button type="submit" class="star" data-star="5">
+			<span aria-hidden="true">&#9733;</span>
+			<span class="screen-reader">5 Stars</span>
+		</button>
+	</form>
+
+	<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+	<script>
+		// Listen for form submissions
+		document.addEventListener('submit', function (event) {
+
+			// Only run our code on .rating forms
+			if (!event.target.matches('.rating')) return;
+
+			// Prevent form from submitting
+			event.preventDefault();
+
+			// Get the selected star
+			var selected = document.activeElement;
+			if (!selected) return;
+			var selectedIndex = parseInt(selected.getAttribute('data-star'), 10);
+
+			// Get all stars in this form (only search in the form, not the whole document)
+			// Convert them from a node list to an array
+			// https://gomakethings.com/converting-a-nodelist-to-an-array-with-vanilla-javascript/
+			var stars = Array.from(event.target.querySelectorAll('.star'));
+
+			// Loop through each star, and add or remove the `.selected` class to toggle highlighting
+			stars.forEach(function (star, index) {
+				if (index < selectedIndex) {
+					// Selected star or before it
+					// Add highlighting
+					star.classList.add('selected');
+				} else {
+					// After selected star
+					// Remove highlight
+					star.classList.remove('selected');
+				}
+			});
+
+			// Remove aria-pressed from any previously selected star
+			var previousRating = event.target.querySelector('.star[aria-pressed="true"]');
+			if (previousRating) {
+				previousRating.removeAttribute('aria-pressed');
+			}
+
+			// Add aria-pressed role to the selected button
+			selected.setAttribute('aria-pressed', true);
+
+		}, false);
+
+		// Highlight the hovered or focused star
+		var highlight = function (event) {
+
+			// Only run our code on .rating forms
+			var star = event.target.closest('.star');
+			var form = event.target.closest('.rating');
+			if (!star || !form) return;
+
+			// Get the selected star
+			var selectedIndex = parseInt(star.getAttribute('data-star'), 10);
+
+			// Get all stars in this form (only search in the form, not the whole document)
+			// Convert them from a node list to an array
+			// https://gomakethings.com/converting-a-nodelist-to-an-array-with-vanilla-javascript/
+			var stars = Array.from(form.querySelectorAll('.star'));
+
+			// Loop through each star, and add or remove the `.selected` class to toggle highlighting
+			stars.forEach(function (star, index) {
+				if (index < selectedIndex) {
+					// Selected star or before it
+					// Add highlighting
+					star.classList.add('selected');
+				} else {
+					// After selected star
+					// Remove highlight
+					star.classList.remove('selected');
+				}
+			});
+
+		};
+
+		// Listen for hover and focus events on stars
+		document.addEventListener('mouseover', highlight, false);
+		document.addEventListener('focus', highlight, true);
+
+	</script>
+</body>
+</html>
